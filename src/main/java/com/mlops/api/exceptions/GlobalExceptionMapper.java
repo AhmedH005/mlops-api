@@ -17,6 +17,9 @@ public class GlobalExceptionMapper implements ExceptionMapper<Throwable> {
 
     @Override
     public Response toResponse(Throwable ex) {
+	if (ex instanceof javax.ws.rs.WebApplicationException) {
+    return ((javax.ws.rs.WebApplicationException) ex).getResponse();
+}
         logger.log(Level.SEVERE, "unhandled exception: " + ex.getMessage(), ex);
 
         Map<String, Object> body = new HashMap<>();
